@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col">
+            {% if user.is_authenticated %}
+            <h3 style="font-weight: bold;" class="text-center p-3 mt-5">USER PROFILE</h3>
+            <table class="table">
+                  <tr>
+                    <th class="text-danger" scope="row">USERNAME</th>
+                    <td class="" style="font-weight: bold;">{{user.username}}</td>
+                    <th class="text-danger" scope="row">FIRSTNAME</th>
+                    <td class="" style="font-weight: bold;">{{user.first_name}}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-danger" scope="row">LASTNAME</th>
+                    <td style="font-weight: bold;">{{user.last_name}}</td>
+                    <th class="text-danger" scope="row">EMAIL</th>
+                    <td class="" style="font-weight: bold;">{{user.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="text-danger">TECHNOLOGIES</th>
+                    <td style="font-weight: bold;">{{cat}}</td>
+                    <th scope="row" class="text-danger">POSTS</th>
+                    <td style="font-weight: bold;">{{post}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="text-danger">Dairy</th>
+                    <td style="font-weight: bold;">{{dairy}}</td>
+                    <th scope="row" class="text-danger">Notes</th>
+                    <td style="font-weight: bold;">{{notes}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-weight: bold;" class="text-center p-3 mt-5">Deatils of people contacted</h3>
+              <table class="table table-bordered">
+                <thead>
+                 
+                  <tr>
+                    <th scope="col">Fullname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Message</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  {% for c in contact %}
+                  <tr>
+                    <td>{{c.name}}</td>
+                    <td>{{c.email}}</td>
+                    <td>{{c.subject}}</td>
+                    <td>{{c.message}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                
+              </table>
+             
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endblock body %}

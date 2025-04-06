@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<main id="main" class="bg-light">
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Blog Posts</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Blog</li>
+                </ol>
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+        <div class="container" data-aos="fade-up">
+            <!-- Category Dropdown -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <form method="GET" action="{% url 'blogs' %}">
+                        <select name="category" class="form-select" onchange="this.form.submit()">
+                            <option value="">All Categories</option>
+                            {% for cat in categories %}
+                                <option value="{{ cat.category_id }}" 
+                                    {% if selected_category|stringformat:"s" == cat.category_id|stringformat:"s" %}selected{% endif %}>
+                                    {{ cat.title }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Posts List -->
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            {% if post.image %}
+                            <img src="/media/{{ post.image }}" class="card-img-top mb-3" alt="{{ post.title }}" style="max-height: 300px; object-fit: cover;">
+                            {% endif %}
+                            <h5 class="card-title">
+                                <a href="{% url 'post_detail' post.url %}" class="text-decoration-none">{{ post.title }}</a>
+                            </h5>
+                            <p class="card-text">{{ post.content|safe|truncatechars:200 }}</p>
+                            <a href="{% url 'post_detail' post.url %}" class="btn btn-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">No posts found in this category.</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock body %}

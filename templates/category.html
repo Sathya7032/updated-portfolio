@@ -1,0 +1,47 @@
+
+{% block scripts %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock scripts %}
+
+{%block body%}
+
+<div class="container mt-2 p-5">
+    <div class="card text-center">
+        <div class="card-header bg-primary text-white">
+          <h3>{{cate.title}}</h3>
+        </div>
+        <div class="card-body">
+          <img src="/media/{{cate.image}}" style="height: 50%;width: 50%;" class="card-img-bottom" alt="...">
+        </div>
+      </div>
+
+
+    <div class="container">
+      <h4 class="text-center ">POSTS</h4>
+        {%for p in posts %}
+       
+        <table class="table table-sm table-dark">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">POST</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>{{p.post_id}}</td>
+            <td class=""><a href="/blog/{{p.url}}">{{p.title}}</a></td>
+          </tr>
+          
+        </table>
+        {% empty %}
+
+        <h3>No posts in this category</h3>
+
+        {%endfor%}
+
+    </div>
+
+
+</div>
+
+{%endblock%}

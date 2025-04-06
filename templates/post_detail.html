@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<main id="main" class="bg-light">
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Blog</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Blog Post</li>
+                </ol>
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="blog-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <article class="blog-post">
+                        <!-- Post Header -->
+                        <header class="mb-4">
+                            <h1 class="fw-bold mb-3">{{ post.title }}</h1>
+                            <div class="d-flex align-items-center text-muted mb-4">
+                                <div class="d-flex align-items-center me-4">
+                                    <i class="bi bi-calendar me-2"></i>
+                                    <span>{{ post.created_at|date:"F j, Y" }}</span>
+                                </div>
+                                {% if post.author %}
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person me-2"></i>
+                                    <span>By {{ post.author }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </header>
+
+                        <!-- Featured Image -->
+                        <figure class="mb-5">
+                            <img src="/media/{{ post.image }}" class="img-fluid rounded" alt="{{ post.title }}">
+                            {% if post.image_caption %}
+                            <figcaption class="mt-2 text-muted text-center">{{ post.image_caption }}</figcaption>
+                            {% endif %}
+                        </figure>
+
+                        <!-- Post Content -->
+                        <div class="post-content">
+                            {{ post.content|safe }}
+                        </div>
+
+                        <!-- Post Footer -->
+                        <footer class="mt-5 pt-4 border-top">
+                            {% if post.tags.all %}
+                            <div class="tags mb-4">
+                                <h6 class="d-inline-block me-2">Tags:</h6>
+                                {% for tag in post.tags.all %}
+                                <a href="#" class="badge bg-secondary text-decoration-none me-1">#{{ tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="share-buttons">
+                                <h6 class="d-inline-block me-3">Share:</h6>
+                                <a href="#" class="text-dark me-3"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="text-dark me-3"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="text-dark me-3"><i class="bi bi-linkedin"></i></a>
+                                <a href="#" class="text-dark"><i class="bi bi-link-45deg"></i></a>
+                            </div>
+                        </footer>
+                    </article>
+
+                    <!-- Related Posts or Comments Section Could Go Here -->
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+    .blog-section {
+        line-height: 1.8;
+        color: #4a4a4a;
+    }
+    
+    .blog-post h1 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+    }
+    
+    .post-content {
+        font-size: 1.1rem;
+    }
+    
+    .post-content p {
+        margin-bottom: 1.5rem;
+    }
+    
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 2rem 0;
+    }
+    
+    .post-content h2, 
+    .post-content h3, 
+    .post-content h4 {
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #2c3e50;
+    }
+    
+    .post-content blockquote {
+        border-left: 4px solid #ddd;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        color: #666;
+        font-style: italic;
+    }
+    
+    .tags .badge {
+        font-weight: normal;
+        padding: 0.35em 0.65em;
+    }
+    
+    .share-buttons i {
+        font-size: 1.2rem;
+        transition: color 0.3s;
+    }
+    
+    .share-buttons i:hover {
+        color: #0d6efd !important;
+    }
+</style>
+{% endblock body %}

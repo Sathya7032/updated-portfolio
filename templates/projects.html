@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Projects | Portfolio{% endblock title %}
+
+{% block body %}
+<main id="main" class="bg-light">
+  <!-- Page Header -->
+  <section class="container mb-1">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="display-2 fw-bold mb-1">My Projects</h2>
+        <p class="lead text-muted">A collection of my professional work and case studies</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="container">
+    {% for project in projects %}
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-10">
+        <!-- Project Card -->
+        <div class="card shadow-sm border-0 overflow-hidden mb-4">
+          <div class="row g-0">
+            <!-- Project Image -->
+            <div class="col-md-6">
+              <img 
+                src="/media/{{project.image}}" 
+                class="img-fluid h-100 object-fit-cover" 
+                alt="{{project.name}}"
+                style="min-height: 300px;"
+              >
+            </div>
+            
+            <!-- Project Details -->
+            <div class="col-md-6">
+              <div class="card-body p-4 p-lg-5">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <h2 class="h3 fw-bold text-dark mb-0">{{project.name}}</h2>
+                  <span class="badge bg-primary bg-opacity-10 text-primary">Project {{forloop.counter}}</span>
+                </div>
+                
+                <div class="project-details mb-4">
+                  {{project.details|safe}}
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center border-top pt-3">
+                  <small class="text-muted">Last updated: {{project.updated_at|date:"F Y"}}</small>
+                  <a href="{{project.links}}" target="_blank" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-github me-2"></i>View Code
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Only show divider if not last project -->
+        {% if not forloop.last %}
+        <div class="text-center my-4">
+          <hr class="w-25 mx-auto" style="border-top: 2px dotted #ddd;">
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+</main>
+
+<style>
+  .project-details {
+    line-height: 1.0;
+    color: #495057;
+  }
+  
+  .project-details p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+  }
+  
+  .object-fit-cover {
+    object-fit: cover;
+  }
+</style>
+{% endblock body %}

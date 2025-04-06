@@ -1,0 +1,49 @@
+{% extends "base.html" %} 
+{% block body %}
+<div class="container p-2 mt-5">
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-4">
+      <h2 class="text-white bg-dark text-center p-3">Contact me</h2>
+      {% for message in messages %}
+
+      <div
+        class="alert alert-{{message.tags}} alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>{{message}} </strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %}
+      <div class="card p-2">
+        <form action="/login/" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <h5>
+              <span><i class="bx bx-user"></i> UserName</span>
+            </h5>
+            <input type="text" name="username" class="form-control" />
+          </div>
+          
+          <div class="form-group">
+            <h5>
+              <span><i class="bx bx-message"></i> Password</span>
+            </h5>
+            <input type="password" name="password" class="form-control" />
+          </div>
+          <br />
+          <div class="d-grid gap-2">
+            <button class="btn btn-dark" type="submit">Login user</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+{% endblock body %}
